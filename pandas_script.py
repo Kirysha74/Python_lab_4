@@ -16,13 +16,14 @@ def add_deviation(df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
 def median_filter(df: pd.core.frame.DataFrame, median: float) -> pd.core.frame.DataFrame:
     return df[df["Median"] > median]
 
-def filter_by_dates(df: pd.core.frame.DataFrame, eatly_date: str | date, late_date: str | date) -> pd.core.frame.DataFrame:
-    date1, date2 = pd.to_datetime(date1), pd.to_datetime(date2)
-    return df[(df["Дата"] >= eatly_date) & (df["Дата"] <= late_date)]
+def filter_by_dates(df: pd.core.frame.DataFrame, early_date: str | date, late_date: str | date) -> pd.core.frame.DataFrame:
+    early_date, late_date = pd.to_datetime(early_date), pd.to_datetime(late_date)
+    return df[(df["Дата"] >= early_date) & (df["Дата"] <= late_date)]
 
 def course_per_month(df: pd.core.frame.DataFrame, date: date) -> None:
     p = df[(df["Дата"].dt.year == date.year) & (df["Дата"].dt.month == date.month)]
     p.plot(x = "Дата", y = "Курс", marker='o')
+    plt.show()
 
 if __name__ == "__main__":
 
